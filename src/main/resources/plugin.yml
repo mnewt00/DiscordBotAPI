@@ -1,0 +1,4 @@
+name: DiscordBotAPI
+version: ${project.version}
+main: me.joshb.server.DiscordBotAPI
+author: Joshb_

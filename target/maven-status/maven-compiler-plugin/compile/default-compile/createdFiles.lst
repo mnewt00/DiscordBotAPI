@@ -1,0 +1,14 @@
+me\joshb\server\config\ConfigUpdater.class
+me\joshb\server\config\Messages.class
+me\joshb\server\config\command\CommandManager.class
+me\joshb\server\listener\DiscordMessageReceived.class
+me\joshb\server\config\command\CommandLink.class
+me\joshb\server\config\Config.class
+me\joshb\server\config\LinkedAccounts.class
+me\joshb\bungee\Config.class
+me\joshb\server\DiscordBotAPI.class
+me\joshb\server\assets\Permission.class
+me\joshb\bungee\DiscordBotAPI.class
+me\joshb\server\config\command\DiscordCommand.class
+me\joshb\server\AccountManager.class
+me\joshb\server\assets\Assets.class

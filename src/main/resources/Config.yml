@@ -1,0 +1,3 @@
+Bot:
+  Token: 'token_here'
+  Command-Prefix: '!ticket'

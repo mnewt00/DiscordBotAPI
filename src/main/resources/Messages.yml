@@ -1,0 +1,23 @@
+Discord:
+  PM-Command-Only: '%author_@%, The link command can only be ran in PM"s.'
+  No-Code-Generated: 'There is not code generated for this account. You must run /discord link in game to get started.'
+  Wrong-Code: 'That code does not match our records. Please try again.'
+  Account-Linked: 'You account has been linked! At any time, use "/discord unlink" in game to unlink your account.'
+Game:
+  Prefix: '&7[&cDiscordBot&7]'
+  Commands:
+    No-Permission: '%prefix% &cYou do not have permission to use this command.'
+    Player-Only-Command: '&cConsole can not run this command.'
+    Discord:
+      No-Args:
+        Not-Linked:
+          - ''
+          - ''
+          - ''
+        Linked:
+          - ''
+          - '&aYou account with our discord server is already linked!'
+          - '&c(your invite link here)'
+          - ''
+    Sub-Commands:
+      Link:
