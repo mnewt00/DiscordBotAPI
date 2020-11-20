@@ -1,4 +1,7 @@
 name: DiscordBotAPI
 version: ${project.version}
-main: me.joshb.server.DiscordBotAPI
+main: me.joshb.discordbotapi.server.DiscordBotAPI
 author: Joshb_
+commands:
+  discord:
+    description: Main plugin command.

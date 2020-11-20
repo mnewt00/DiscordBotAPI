@@ -12,12 +12,26 @@ Game:
       No-Args:
         Not-Linked:
           - ''
-          - ''
+          - '&3Join our discord! &e(invite link)'
           - ''
         Linked:
           - ''
-          - '&aYou account with our discord server is already linked!'
+          - '&aYour account (&e%player%) is linked with discord (%discord_name%#%discord_discriminator%)'
           - '&c(your invite link here)'
           - ''
     Sub-Commands:
       Link:
+        Not-Linked:
+          - ''
+          - '&e%player%&a, you can link your account on our discord!'
+          - '&e(invite link)'
+          - ''
+          - '&aInstructions:'
+          - '&aP.M &e%discord_bot_name% with this command:'
+          - '&e%command_prefix% link %code%'
+          - '&aThat"s it!'
+        Linked:
+          - ''
+          - '&aYour account (&e%player%) is linked with discord (%discord_author_name%#%discord_author_discriminator%)'
+          - '&c(your invite link here)'
+          - ''
