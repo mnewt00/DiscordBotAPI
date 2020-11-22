@@ -1,4 +1,7 @@
 name: DiscordBotAPI
-version: 1.0.0
-main: me.joshb.server.DiscordBotAPI
+version: 1.0.2
+main: me.joshb.discordbotapi.server.DiscordBotAPI
 author: Joshb_
+commands:
+  discord:
+    description: Main plugin command.

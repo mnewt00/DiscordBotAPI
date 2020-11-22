@@ -22,13 +22,13 @@ public class AccountManager {
         return getConfig().getString(uuid.toString() + ".Code");
     }
 
-    public String getCode(String discordID){
+    public boolean matchCode(String code){
         for(String uuid : getConfig().getKeys(false)){
-            if(getConfig().getString(uuid + ".Discord-ID").equals(discordID)) {
-                return getConfig().getString(uuid + ".Code");
+            if(getConfig().getString(uuid + ".Code").equals(code)) {
+                return true;
             }
         }
-        return null;
+        return false;
     }
 
     public void setDiscordID(String discordID, String code){
@@ -45,9 +45,11 @@ public class AccountManager {
         return getConfig().getString(uuid.toString() + ".Discord-ID");
     }
 
-    public String getUUID(String discordID){
+    public UUID getUUID(String discordID){
         for(String uuid : getConfig().getKeys(false)){
-            return getConfig().getString(uuid + ".Discord-ID");
+            if(getConfig().getString(uuid + ".Discord-ID").equals(discordID)){
+                return UUID.fromString(uuid);
+            }
         }
         return null;
     }

@@ -39,15 +39,15 @@ public class DiscordMessageReceived extends ListenerAdapter {
                     return;
                 }
                 String code = args[2];
-                if(DiscordBotAPI.getAccountManager().getCode(u.getId()) == null){
-                    e.getTextChannel().sendMessage(Assets.formatDiscordMessage("Discord.No-Code-Generated", u)).queue();
+                if(!DiscordBotAPI.getAccountManager().matchCode(code)){
+                    u.openPrivateChannel().queue(privateChannel -> {
+                        privateChannel.sendMessage(Assets.formatDiscordMessage("Discord.No-Code-Generated", u)).queue();
+                    });
                     return;
                 }
-                if(!DiscordBotAPI.getAccountManager().getCode(u.getId()).equals(code)){
-                    e.getTextChannel().sendMessage(Assets.formatDiscordMessage("Discord.Wrong-Code", u)).queue();
-                    return;
-                }
-                e.getTextChannel().sendMessage(Assets.formatDiscordMessage("Discord.Account-Linked", u)).queue();
+                u.openPrivateChannel().queue(privateChannel -> {
+                   privateChannel.sendMessage(Assets.formatDiscordMessage("Discord.Account-Linked", u)).queue();
+                });
                 DiscordBotAPI.getAccountManager().setDiscordID(u.getId(), code);
             }
         }

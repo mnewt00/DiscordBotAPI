@@ -58,7 +58,6 @@ public class Messages {
             copy(DiscordBotAPI.plugin.getResource(fileName + ".yml"), file);
         }
         config = YamlConfiguration.loadConfiguration(file);
-        save();
         reload();
     }
 

@@ -3,14 +3,16 @@ package me.joshb.discordbotapi.server.config.command;
 import me.joshb.discordbotapi.server.DiscordBotAPI;
 import me.joshb.discordbotapi.server.assets.Assets;
 import me.joshb.discordbotapi.server.assets.Permission;
+import me.joshb.discordbotapi.server.config.Config;
 import net.dv8tion.jda.api.entities.User;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public class CommandLink extends DiscordCommand {
+
+    private final String command = Config.getInstance().getConfig().getString("Bot.Command-Prefix");
 
     @Override
     public String command() {
@@ -26,12 +28,14 @@ public class CommandLink extends DiscordCommand {
         if(DiscordBotAPI.getAccountManager().getDiscordID(p.getUniqueId()) == null){
             //Not linked
             List<String> notLinked = Assets.formatStringList("Game.Commands.Discord.Sub-Commands.Link.Not-Linked");
+            System.out.println(notLinked);
             String randomCode = code();
             DiscordBotAPI.getAccountManager().setCode(p.getUniqueId(), randomCode);
             for(String s : notLinked){
                 p.sendMessage(s
                         .replaceAll("%code%", randomCode)
                         .replaceAll("%player%", p.getName())
+                        .replaceAll("%command_prefix%", command)
                         .replaceAll("%discord_bot_name%", DiscordBotAPI.getJDA().getSelfUser().getName()));
             }
         } else {

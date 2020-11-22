@@ -10,6 +10,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -18,7 +19,7 @@ public class CommandManager implements CommandExecutor {
     private List<DiscordCommand> commands = new ArrayList<>();
 
     public void initializeSubCommands(){
-
+        commands.add(new CommandLink());
     }
 
     @Override
@@ -35,7 +36,7 @@ public class CommandManager implements CommandExecutor {
         if(args.length == 0){
             //Not Linked
             if(DiscordBotAPI.getAccountManager().getDiscordID(p.getUniqueId()) == null){
-                List<String> notLinked = Assets.formatStringList("Game.Commands.Discord.No-Args.Not-Linked");
+                List<String> notLinked = Assets.formatStringList("Game.Commands.Discord.Not-Linked");
                 for(String s : notLinked){
                     p.sendMessage(s
                             .replaceAll("%player%", p.getName()));
@@ -43,7 +44,7 @@ public class CommandManager implements CommandExecutor {
             //Linked
             } else {
                 User u = DiscordBotAPI.getJDA().getUserById(DiscordBotAPI.getAccountManager().getDiscordID(p.getUniqueId()));
-                List<String> linked = Assets.formatStringList("Game.Commands.Discord.Sub-Commands.Link.Linked");
+                List<String> linked = Assets.formatStringList("Game.Commands.Discord.Linked");
                 for(String s : linked){
                     p.sendMessage(s
                             .replaceAll("%player%", p.getName())
@@ -52,7 +53,24 @@ public class CommandManager implements CommandExecutor {
                             .replaceAll("%discord_author_discriminator%", u.getDiscriminator()));
                 }
             }
+        } else {
+            DiscordCommand cmd = get(args[0]);
+            if (!(cmd == null)) {
+                ArrayList<String> a = new ArrayList<String>(Arrays.asList(args));
+                a.remove(0);
+                args = a.toArray(new String[a.size()]);
+                cmd.onCommand(p, args);
+                return false;
+            }
         }
         return false;
+    }
+
+    private DiscordCommand get(String name) {
+        for (DiscordCommand cmd : commands) {
+            if (cmd.command().equalsIgnoreCase(name))
+                return cmd;
+        }
+        return null;
     }
 }
