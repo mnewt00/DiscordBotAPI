@@ -38,7 +38,6 @@ public class AccountManager {
                 LinkedAccounts.getInstance().save();
             }
         }
-
     }
 
     public String getDiscordID(UUID uuid){
@@ -52,6 +51,20 @@ public class AccountManager {
             }
         }
         return null;
+    }
+
+    public void unlinkAccount(UUID uuid){
+        getConfig().set(uuid.toString(), null);
+        LinkedAccounts.getInstance().save();
+    }
+
+    public void unlinkAccount(String discordID){
+        for(String uuid : getConfig().getKeys(false)){
+            if(getConfig().getString(uuid + ".Discord-ID").equals(discordID)) {
+                getConfig().set(uuid, null);
+                LinkedAccounts.getInstance().save();
+            }
+        }
     }
 
     private FileConfiguration getConfig(){

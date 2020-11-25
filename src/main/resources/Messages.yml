@@ -15,7 +15,7 @@ Game:
         - ''
       Linked:
         - ''
-        - '&aYour account (&e%player%) is linked with discord (%discord_name%#%discord_discriminator%)'
+        - '&aYour account (&e%player%&a) is linked with discord (&e%discord_author_name%#%discord_author_discriminator%&a)'
         - '&c(your invite link here)'
         - ''
       Sub-Commands:
@@ -31,6 +31,17 @@ Game:
             - '&a- That"s it!'
           Linked:
             - ''
-            - '&aYour account (&e%player%) is linked with discord (%discord_author_name%#%discord_author_discriminator%)'
+            - '&aYour account (&e%player%&a) is linked with discord (&e%discord_author_name%#%discord_author_discriminator%&a)'
+            - '&c(your invite link here)'
+            - ''
+        Unlink:
+          Not-Linked:
+            - ''
+            - '&e%player%&a, your account is not linked on our discord!'
+            - '&e(invite link)'
+            - ''
+          Linked:
+            - ''
+            - '&aYour account (&e%player%&a) has been unlinked with discord (&e%discord_author_name%#%discord_author_discriminator%&a)'
             - '&c(your invite link here)'
             - ''

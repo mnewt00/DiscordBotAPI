@@ -12,7 +12,6 @@ import org.bukkit.entity.Player;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 
 public class CommandManager implements CommandExecutor {
 
@@ -20,6 +19,7 @@ public class CommandManager implements CommandExecutor {
 
     public void initializeSubCommands(){
         commands.add(new CommandLink());
+        commands.add(new CommandUnlink());
     }
 
     @Override
@@ -56,7 +56,7 @@ public class CommandManager implements CommandExecutor {
         } else {
             DiscordCommand cmd = get(args[0]);
             if (!(cmd == null)) {
-                ArrayList<String> a = new ArrayList<String>(Arrays.asList(args));
+                ArrayList<String> a = new ArrayList<>(Arrays.asList(args));
                 a.remove(0);
                 args = a.toArray(new String[a.size()]);
                 cmd.onCommand(p, args);

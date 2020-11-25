@@ -8,6 +8,7 @@ me\joshb\discordbotapi\server\config\Messages.class
 me\joshb\discordbotapi\bungee\DiscordBotAPI.class
 me\joshb\discordbotapi\server\config\command\DiscordCommand.class
 me\joshb\discordbotapi\server\config\ConfigUpdater.class
+me\joshb\discordbotapi\server\config\command\CommandUnlink.class
 me\joshb\discordbotapi\server\config\Config.class
 me\joshb\discordbotapi\server\config\command\CommandLink.class
 me\joshb\discordbotapi\server\DiscordBotAPI.class
