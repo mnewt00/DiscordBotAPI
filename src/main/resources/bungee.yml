@@ -1,4 +1,4 @@
 name: DiscordBotAPI
 version: ${project.version}
-main: me.joshb.bungee.DiscordBotAPI
+main: me.joshb.discordbotapi.bungee.DiscordBotAPI
 author: Joshb_

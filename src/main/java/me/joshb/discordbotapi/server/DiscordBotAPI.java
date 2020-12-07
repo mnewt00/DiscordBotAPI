@@ -3,11 +3,13 @@ package me.joshb.discordbotapi.server;
 import me.joshb.discordbotapi.server.config.Config;
 import me.joshb.discordbotapi.server.config.LinkedAccounts;
 import me.joshb.discordbotapi.server.config.Messages;
-import me.joshb.discordbotapi.server.config.command.CommandManager;
+import me.joshb.discordbotapi.server.command.CommandManager;
 import me.joshb.discordbotapi.server.listener.DiscordMessageReceived;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.requests.GatewayIntent;
 import org.bukkit.Bukkit;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import javax.security.auth.login.LoginException;
@@ -18,7 +20,7 @@ public class DiscordBotAPI extends JavaPlugin {
 
     public static DiscordBotAPI plugin;
 
-    public void onEnable(){
+    public void onEnable() {
         plugin = this;
 
         Config.getInstance().initialize();
@@ -29,13 +31,13 @@ public class DiscordBotAPI extends JavaPlugin {
         cm.initializeSubCommands();
         getCommand("discord").setExecutor(cm);
 
-        if(Config.getInstance().getConfig().getString("Bot.Token").equals("token_here")){
+        if (Config.getInstance().getConfig().getString("Bot.Token").equals("token_here")) {
             getLogger().severe("Plugin Disabled. The bot token is invalid.");
             Bukkit.getPluginManager().disablePlugin(this);
             return;
         }
 
-        JDABuilder builder = JDABuilder.createDefault(Config.getInstance().getConfig().getString("Bot.Token"));
+        JDABuilder builder = JDABuilder.create(Config.getInstance().getConfig().getString("Bot.Token"), GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_MESSAGE_REACTIONS);
 
         try {
             jda = builder.build();
@@ -46,17 +48,35 @@ public class DiscordBotAPI extends JavaPlugin {
         jda.addEventListener(new DiscordMessageReceived());
     }
 
-    public void onDisable(){
-        if(jda != null){
+    public void onDisable() {
+        if (jda != null) {
             jda.shutdown();
         }
     }
 
-    public static JDA getJDA(){
+    public static JDA getJDA() {
         return jda;
     }
 
-    public static AccountManager getAccountManager(){
+    public void registerEvent(Plugin p, Object listenerClass) {
+        getLogger().info("Registering Listener from " + p.getName() + " - " + listenerClass.getClass().getName());
+        try {
+            jda.addEventListener(listenerClass);
+        } catch (Exception e) {
+            getLogger().severe("Could not register listener from " + p.getName() + " - " + e.getMessage());
+        }
+    }
+
+    public void unRegisterEvent(Plugin p, Object listenerClass) {
+        getLogger().info("Unregistering Listener from " + p.getName() + " - " + listenerClass.getClass().getName());
+        try {
+            jda.removeEventListener(listenerClass);
+        } catch (Exception e) {
+            getLogger().severe("Could not unregister listener from " + p.getName() + " - " + e.getMessage());
+        }
+    }
+
+    public static AccountManager getAccountManager() {
         return AccountManager.getInstance();
     }
 

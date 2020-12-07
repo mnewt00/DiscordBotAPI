@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>me.Joshb</groupId>
   <artifactId>DiscordBotAPI</artifactId>
-  <version>1.0.3</version>
+  <version>1.0.0</version>
   <build>
     <sourceDirectory>src/main/java</sourceDirectory>
     <resources>
@@ -12,6 +12,7 @@
         <filtering>true</filtering>
         <directory>${basedir}/src/main/resources/</directory>
         <includes>
+          <include>bungee.yml</include>
           <include>plugin.yml</include>
           <include>Messages.yml</include>
           <include>Config.yml</include>
