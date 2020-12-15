@@ -35,7 +35,11 @@ public class DiscordBotAPI extends Plugin {
         cm.initializeSubCommands();
         ProxyServer.getInstance().getPluginManager().registerCommand(this, cm);
 
-        JDABuilder builder = JDABuilder.create(Config.getInstance().getConfig().getString("Bot.Token"), GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_MESSAGE_REACTIONS);
+        JDABuilder builder = JDABuilder.create(me.joshb.discordbotapi.server.config.Config.getInstance().getConfig().getString("Bot.Token"),
+                GatewayIntent.GUILD_MEMBERS,
+                GatewayIntent.GUILD_MESSAGE_REACTIONS,
+                GatewayIntent.DIRECT_MESSAGES,
+                GatewayIntent.GUILD_MESSAGES);
 
         try {
             jda = builder.build();
