@@ -15,7 +15,7 @@ import javax.security.auth.login.LoginException;
 
 public class DiscordBotAPI extends Plugin {
 
-    public JDA jda;
+    public static JDA jda;
 
     public static DiscordBotAPI plugin;
 
@@ -55,7 +55,7 @@ public class DiscordBotAPI extends Plugin {
         }
     }
 
-    public JDA getJDA(){
+    public static JDA getJDA(){
         return jda;
     }
 
