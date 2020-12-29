@@ -1,5 +1,5 @@
 name: DiscordBotAPI
-version: 1.0.5
+version: 1.0.6
 main: me.joshb.discordbotapi.server.DiscordBotAPI
 author: Joshb_
 commands:

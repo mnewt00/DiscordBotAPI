@@ -20,6 +20,8 @@ public class DiscordBotAPI extends JavaPlugin {
 
     public static DiscordBotAPI plugin;
 
+    public DiscordMessageReceived discordMessageReceived = new DiscordMessageReceived();
+
     public void onEnable() {
         plugin = this;
 
@@ -49,11 +51,12 @@ public class DiscordBotAPI extends JavaPlugin {
             getLogger().severe("Plugin Disabled. The bot token is invalid. Reason: " + e.getMessage());
             Bukkit.getPluginManager().disablePlugin(this);
         }
-        jda.addEventListener(new DiscordMessageReceived());
+        registerEvent(this, discordMessageReceived);
     }
 
     public void onDisable() {
         if (jda != null) {
+            unRegisterEvent(this, discordMessageReceived);
             jda.shutdown();
         }
     }
@@ -63,7 +66,9 @@ public class DiscordBotAPI extends JavaPlugin {
     }
 
     public void registerEvent(Plugin p, Object listenerClass) {
-        getLogger().info("Registering Listener from " + p.getName() + " - " + listenerClass.getClass().getName());
+        if(p != this){
+            getLogger().info("Registering Listener from " + p.getName() + " - " + listenerClass.getClass().getName());
+        }
         try {
             jda.addEventListener(listenerClass);
         } catch (Exception e) {
@@ -72,7 +77,9 @@ public class DiscordBotAPI extends JavaPlugin {
     }
 
     public void unRegisterEvent(Plugin p, Object listenerClass) {
-        getLogger().info("Unregistering Listener from " + p.getName() + " - " + listenerClass.getClass().getName());
+        if(p != this){
+            getLogger().info("Unregistering Listener from " + p.getName() + " - " + listenerClass.getClass().getName());
+        }
         try {
             jda.removeEventListener(listenerClass);
         } catch (Exception e) {

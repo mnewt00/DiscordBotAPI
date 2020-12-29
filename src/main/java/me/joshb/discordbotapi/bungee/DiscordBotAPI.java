@@ -19,6 +19,8 @@ public class DiscordBotAPI extends Plugin {
 
     public static DiscordBotAPI plugin;
 
+    public DiscordMessageReceived discordMessageReceived = new DiscordMessageReceived();
+
     public void onEnable(){
         plugin = this;
 
@@ -35,7 +37,7 @@ public class DiscordBotAPI extends Plugin {
         cm.initializeSubCommands();
         ProxyServer.getInstance().getPluginManager().registerCommand(this, cm);
 
-        JDABuilder builder = JDABuilder.create(me.joshb.discordbotapi.server.config.Config.getInstance().getConfig().getString("Bot.Token"),
+        JDABuilder builder = JDABuilder.create(Config.getInstance().getConfig().getString("Bot.Token"),
                 GatewayIntent.GUILD_MEMBERS,
                 GatewayIntent.GUILD_MESSAGE_REACTIONS,
                 GatewayIntent.DIRECT_MESSAGES,
@@ -46,14 +48,38 @@ public class DiscordBotAPI extends Plugin {
         } catch (LoginException e) {
             getLogger().severe("Plugin Disabled. The bot token is invalid. Reason: " + e.getMessage());
         }
-        jda.addEventListener(new DiscordMessageReceived());
+        registerEvent(this, discordMessageReceived);
     }
 
     public void onDisable(){
         if(jda != null){
+            unRegisterEvent(this, discordMessageReceived);
             jda.shutdown();
         }
     }
+
+    public void registerEvent(Plugin p, Object listenerClass) {
+        if(p != this){
+            getLogger().info("Registering Listener from " + p.getDescription().getName() + " - " + listenerClass.getClass().getName());
+        }
+        try {
+            jda.addEventListener(listenerClass);
+        } catch (Exception e) {
+            getLogger().severe("Could not register listener from " + p.getDescription().getName() + " - " + e.getMessage());
+        }
+    }
+
+    public void unRegisterEvent(Plugin p, Object listenerClass) {
+        if(p != this){
+            getLogger().info("Unregistering Listener from " + p.getDescription().getName() + " - " + listenerClass.getClass().getName());
+        }
+        try {
+            jda.removeEventListener(listenerClass);
+        } catch (Exception e) {
+            getLogger().severe("Could not unregister listener from " + p.getDescription().getName() + " - " + e.getMessage());
+        }
+    }
+
 
     public static JDA getJDA(){
         return jda;
