@@ -20,7 +20,7 @@ public class DiscordBotAPI extends JavaPlugin {
 
     public static DiscordBotAPI plugin;
 
-    public DiscordMessageReceived discordMessageReceived = new DiscordMessageReceived();
+    public DiscordMessageReceived discordMessageReceived;
 
     public void onEnable() {
         plugin = this;
@@ -51,6 +51,7 @@ public class DiscordBotAPI extends JavaPlugin {
             getLogger().severe("Plugin Disabled. The bot token is invalid. Reason: " + e.getMessage());
             Bukkit.getPluginManager().disablePlugin(this);
         }
+        discordMessageReceived = new DiscordMessageReceived();
         registerEvent(this, discordMessageReceived);
     }
 
